@@ -16,13 +16,13 @@ int main(int argc,char *argv[])
 
     if(bind(sockfd,(SA) &serv, sizeof(serv)) < 0)
         err_sys("bind error");
-
+	memset(&reply,"11111",5);
     
     for(;;){
         clilen = sizeof(cli);
         if((n = recvfrom(sockfd,request,REQUEST,0,(SA) &cli, &clilen))<0)
             err_sys("recvfrom error");
-
+		printf("%s\n",&request);
         if(sendto(sockfd, reply, REPLY,0, (SA) &cli,sizeof(cli)) != REPLY)
             err_sys("sendto error");
     }
